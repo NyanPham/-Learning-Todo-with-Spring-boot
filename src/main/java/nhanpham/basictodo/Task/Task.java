@@ -1,4 +1,4 @@
-package nhanpham.basictodo.model;
+package nhanpham.basictodo.Task;
 
 import java.util.Date;
 

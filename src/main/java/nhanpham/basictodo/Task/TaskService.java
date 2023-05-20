@@ -1,4 +1,4 @@
-package nhanpham.basictodo.service;
+package nhanpham.basictodo.Task;
 
 import java.util.Date;
 import java.util.Optional;
@@ -15,10 +15,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-
-import nhanpham.basictodo.model.Task;
-import nhanpham.basictodo.model.TaskToUpsert;
-import nhanpham.basictodo.repository.TaskRepository;
 
 @Service
 public class TaskService {
@@ -40,7 +36,7 @@ public class TaskService {
         return taskRepository.findById(id);
     }
 
-    public Task updateTask(ObjectId id, TaskToUpsert taskToUpdate) {
+    public Task updateTask(ObjectId id, TaskToUpsertDao taskToUpdate) {
         Query updateQuery = new Query();
         updateQuery.addCriteria(Criteria.where("id").is(id));
 

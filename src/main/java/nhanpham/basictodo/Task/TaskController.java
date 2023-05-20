@@ -1,9 +1,7 @@
-package nhanpham.basictodo.controller;
+package nhanpham.basictodo.Task;
 
 import java.util.Date;
 import java.util.Optional;
-
-import javax.swing.text.html.Option;
 
 import java.util.Collection;
 
@@ -22,12 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import nhanpham.basictodo.model.Task;
-import nhanpham.basictodo.model.TaskToUpsert;
-import nhanpham.basictodo.service.TaskService;
-
 @RestController
-@RequestMapping(path = "/api/v1/tasks")
+@RequestMapping("api/v1/tasks")
 public class TaskController {
     @Autowired
     private TaskService taskService;
@@ -38,7 +32,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody TaskToUpsert taskToCreate) {
+    public ResponseEntity<Task> createTask(@RequestBody TaskToUpsertDao taskToCreate) {
         return new ResponseEntity<Task>(
                 taskService.createTask(taskToCreate.getTitle(), taskToCreate.getDescription(),
                         taskToCreate.getDueDate(), taskToCreate.getIsCompleted()),
@@ -52,7 +46,7 @@ public class TaskController {
 
     @PatchMapping("{id}")
     public ResponseEntity<Task> updateTask(@PathVariable("id") ObjectId id,
-            @RequestBody TaskToUpsert taskToUpsert) {
+            @RequestBody TaskToUpsertDao taskToUpsert) {
         return new ResponseEntity<Task>(taskService.updateTask(id, taskToUpsert), HttpStatus.OK);
     }
 

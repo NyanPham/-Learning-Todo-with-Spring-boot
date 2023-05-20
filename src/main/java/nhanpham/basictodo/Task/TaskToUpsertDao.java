@@ -1,8 +1,8 @@
-package nhanpham.basictodo.model;
+package nhanpham.basictodo.Task;
 
 import java.util.Date;
 
-public class TaskToUpsert {
+public class TaskToUpsertDao {
     private String title;
     private String description;
     private Date dueDate;
@@ -24,7 +24,7 @@ public class TaskToUpsert {
         return isCompleted;
     }
 
-    public TaskToUpsert(String title, String description, Date dueDate, Boolean isCompleted) {
+    public TaskToUpsertDao(String title, String description, Date dueDate, Boolean isCompleted) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
