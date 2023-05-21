@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>basictodo</name>
 	<description>Todo Practice for Spring boot</description>
-	<properties>
+	<properties>	
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>	
