@@ -33,7 +33,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public User createUser(UserToUpsertDao userToCreate) {
+    public User createUser(UserToUpsertDto userToCreate) {
         return userRepository.insert(new User(userToCreate.getUsername(), userToCreate.getEmail(),
                 userToCreate.getPassword(), userToCreate.getUserRole()));
     }
@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
-    public User updateUser(ObjectId id, UserToUpsertDao userToUpdate) {
+    public User updateUser(ObjectId id, UserToUpsertDto userToUpdate) {
         Query userQuery = new Query();
         userQuery.addCriteria(Criteria.where("id").is(id));
 

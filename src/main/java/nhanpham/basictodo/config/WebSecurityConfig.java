@@ -17,7 +17,8 @@ public class WebSecurityConfig {
                 .csrf().disable().httpBasic().disable()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/api/v*/users/**").permitAll()
-                        .requestMatchers("/api/v*/tasks/**").permitAll());
+                        .requestMatchers("/api/v*/tasks/**").permitAll()
+                        .requestMatchers("/api/v*/auth/**").permitAll());
 
         return http.build();
     }

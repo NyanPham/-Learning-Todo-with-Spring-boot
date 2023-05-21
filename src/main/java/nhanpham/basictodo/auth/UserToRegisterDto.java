@@ -1,17 +1,9 @@
-package nhanpham.basictodo.User;
+package nhanpham.basictodo.auth;
 
-public class UserToUpsertDao {
+public class UserToRegisterDto {
     private String email;
     private String username;
     private String password;
-    private UserRole userRole;
-
-    public UserToUpsertDao(String email, String username, String password, UserRole userRole) {
-        this.email = email;
-        this.username = username;
-        this.password = password;
-        this.userRole = userRole;
-    }
 
     public String getEmail() {
         return email;
@@ -37,11 +29,9 @@ public class UserToUpsertDao {
         this.password = password;
     }
 
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    public void setUserRole(UserRole userRole) {
-        this.userRole = userRole;
+    public UserToRegisterDto(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
     }
 }

@@ -27,7 +27,7 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody UserToUpsertDao userToCreate) {
+    public User createUser(@RequestBody UserToUpsertDto userToCreate) {
         return userService.createUser(userToCreate);
     }
 
@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @PatchMapping("{id}")
-    public User updateUser(@PathVariable("id") ObjectId id, @RequestBody UserToUpsertDao userToUpdate) {
+    public User updateUser(@PathVariable("id") ObjectId id, @RequestBody UserToUpsertDto userToUpdate) {
         return userService.updateUser(id, userToUpdate);
     }
 
