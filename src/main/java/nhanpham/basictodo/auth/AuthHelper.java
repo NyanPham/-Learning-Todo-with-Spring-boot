@@ -1,20 +1,14 @@
 package nhanpham.basictodo.auth;
 
-import java.beans.JavaBean;
 import java.time.Instant;
 
-import javax.crypto.spec.SecretKeySpec;
-
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.fasterxml.jackson.databind.util.Converter;
 
 import jakarta.servlet.http.Cookie;
 import nhanpham.basictodo.User.User;

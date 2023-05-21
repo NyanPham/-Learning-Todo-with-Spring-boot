@@ -3,8 +3,6 @@ package nhanpham.basictodo.Task;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
-
 import java.util.Collection;
 
 import org.bson.types.ObjectId;
@@ -15,8 +13,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
-
-import nhanpham.basictodo.User.User;
 
 @Service
 public class TaskService {

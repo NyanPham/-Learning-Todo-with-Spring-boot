@@ -1,6 +1,5 @@
 package nhanpham.basictodo.auth;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
-import nhanpham.basictodo.Task.Task;
 import nhanpham.basictodo.User.User;
 import nhanpham.basictodo.User.UserRole;
 import nhanpham.basictodo.auth.AuthToken.AuthToken;

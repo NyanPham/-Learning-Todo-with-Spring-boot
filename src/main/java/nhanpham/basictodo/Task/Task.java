@@ -5,14 +5,12 @@ import java.util.Date;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.mongodb.lang.NonNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import nhanpham.basictodo.User.User;
 
 @Document(collection = "tasks")
 @NoArgsConstructor
