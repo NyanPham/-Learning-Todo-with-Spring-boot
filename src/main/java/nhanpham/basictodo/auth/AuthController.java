@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.servlet.http.HttpServletResponse;
 import nhanpham.basictodo.User.User;
 
 @RestController
@@ -16,12 +17,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("register")
-    public User register(@RequestBody UserToRegisterDto userToRegister) {
-        return authService.register(userToRegister);
+    public User register(@RequestBody UserToRegisterDto userToRegister, HttpServletResponse response) {
+        return authService.register(userToRegister, response);
     }
 
     @PostMapping("login")
-    public User signIn(@RequestBody UserToLoginDto userToLogin) {
-        return authService.signIn(userToLogin);
+    public User signIn(@RequestBody UserToLoginDto userToLogin, HttpServletResponse response) {
+        return authService.signIn(userToLogin, response);
     }
 }

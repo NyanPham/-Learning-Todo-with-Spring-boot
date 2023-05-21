@@ -81,4 +81,8 @@ public class User implements UserDetails {
     public void enableUser() {
         enabled = true;
     }
+
+    public String getId() {
+        return id.toString();
+    }
 }

@@ -39,6 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     public Optional<User> getUser(ObjectId id) {
+
         return userRepository.findById(id);
     }
 

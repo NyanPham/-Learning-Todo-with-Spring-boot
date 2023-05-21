@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import nhanpham.basictodo.User.User;
 import nhanpham.basictodo.User.UserRole;
+import nhanpham.basictodo.auth.AuthToken.AuthToken;
 
 @Service
 public class AuthService {
@@ -18,7 +21,10 @@ public class AuthService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User register(UserToRegisterDto userToRegister) {
+    @Autowired
+    private AuthHelper authHelper;
+
+    public User register(UserToRegisterDto userToRegister, HttpServletResponse response) {
         Boolean userExists = authRepository.getUserByEmail(userToRegister.getEmail()).isPresent();
 
         if (userExists) {
@@ -34,12 +40,16 @@ public class AuthService {
 
         authRepository.save(newUser);
 
+        AuthToken token = authHelper.createToken(newUser);
+        Cookie cookie = authHelper.createCookie("jwt", token.getToken(), false, false, 1);
+        response.addCookie(cookie);
+
         return newUser;
     }
 
-    public User signIn(UserToLoginDto userToLogin) {
+    public User signIn(UserToLoginDto userToLogin, HttpServletResponse response) {
         Optional<User> user = authRepository.getUserByEmail(userToLogin.getEmail());
-        
+
         if (!user.isPresent()) {
             throw new IllegalStateException("User with that email not found");
         }
@@ -48,6 +58,11 @@ public class AuthService {
         if (!correctPassword) {
             throw new IllegalStateException("Incorrect Password");
         }
+
+        AuthToken token = authHelper.createToken(user.get());
+        Cookie cookie = authHelper.createCookie("jwt", token.getToken(), false, false, 1);
+
+        response.addCookie(cookie);
 
         return user.get();
     }

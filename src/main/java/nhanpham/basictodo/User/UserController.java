@@ -33,6 +33,7 @@ public class UserController {
 
     @GetMapping("{id}")
     public Optional<User> getUser(@PathVariable("id") ObjectId id) {
+
         return userService.getUser(id);
     }
 
