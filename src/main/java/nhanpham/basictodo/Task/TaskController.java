@@ -9,6 +9,9 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -25,7 +28,9 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public ResponseEntity<Collection<Task>> getAllTasks() {
+    public ResponseEntity<Collection<Task>> getAllTasks(
+            @CurrentSecurityContext(expression = "authentication") Authentication auth) {
+                
         return new ResponseEntity<Collection<Task>>(taskService.findTasks(), HttpStatus.OK);
     }
 

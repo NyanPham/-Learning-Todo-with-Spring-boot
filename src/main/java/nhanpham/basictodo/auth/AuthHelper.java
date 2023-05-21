@@ -55,10 +55,15 @@ public class AuthHelper {
                 decodedJWT.getExpiresAt());
     }
 
-    public Cookie createCookie(String name, Object value, Boolean isSecured, Boolean isHttpOnly, Integer daysToExpire) {
+    public Cookie createCookie(String name, Object value, Boolean isSecured, Boolean isHttpOnly, Integer daysToExpire,
+            Integer secondsToExpire) {
         Cookie cookie = new Cookie(name, value.toString());
 
-        cookie.setMaxAge(daysToExpire * 24 * 60 * 60);
+        if (daysToExpire != null)
+            cookie.setMaxAge(daysToExpire * 24 * 60 * 60);
+
+        if (daysToExpire == null && secondsToExpire != null)
+            cookie.setMaxAge(secondsToExpire);
 
         cookie.setSecure(isSecured);
         cookie.setHttpOnly(isHttpOnly);

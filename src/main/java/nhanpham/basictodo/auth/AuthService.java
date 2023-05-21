@@ -3,6 +3,7 @@ package nhanpham.basictodo.auth;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +42,7 @@ public class AuthService {
         authRepository.save(newUser);
 
         AuthToken token = authHelper.createToken(newUser);
-        Cookie cookie = authHelper.createCookie("jwt", token.getToken(), false, false, 1);
+        Cookie cookie = authHelper.createCookie("jwt", token.getToken(), false, false, 1, null);
         response.addCookie(cookie);
 
         return newUser;
@@ -60,10 +61,17 @@ public class AuthService {
         }
 
         AuthToken token = authHelper.createToken(user.get());
-        Cookie cookie = authHelper.createCookie("jwt", token.getToken(), false, false, 1);
+        Cookie cookie = authHelper.createCookie("jwt", token.getToken(), false, false, 1, null);
 
         response.addCookie(cookie);
 
         return user.get();
+    }
+
+    public void signOut(HttpServletResponse response) {
+        SecurityContextHolder.getContext().setAuthentication(null);
+
+        Cookie cookie = authHelper.createCookie("jwt", "log_out", false, false, null, 3);
+        response.addCookie(cookie);
     }
 }

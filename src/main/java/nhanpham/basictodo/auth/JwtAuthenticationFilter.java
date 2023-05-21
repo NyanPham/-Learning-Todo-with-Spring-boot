@@ -1,14 +1,15 @@
 package nhanpham.basictodo.auth;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
@@ -65,7 +66,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (!currentUser.isPresent())
                 throw new IllegalStateException("User with that token not found anymore");
 
-            request.setAttribute(token, currentUser);
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(currentUser,
+                    null, currentUser.get().getAuthorities());
+                    
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
         } catch (JWTDecodeException e) {
             filterChain.doFilter(request, response);
             return;

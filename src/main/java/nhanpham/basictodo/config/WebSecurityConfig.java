@@ -2,8 +2,10 @@ package nhanpham.basictodo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -13,6 +15,7 @@ import nhanpham.basictodo.auth.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig {
 
     @Bean
@@ -20,9 +23,10 @@ public class WebSecurityConfig {
         http
                 .csrf().disable().httpBasic().disable()
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/api/v*/users/**").permitAll()
-                        .requestMatchers("/api/v*/tasks/**").permitAll()
-                        .requestMatchers("/api/v*/auth/**").permitAll());
+                        .requestMatchers("/api/v*/auth/**").permitAll()
+                        .requestMatchers("/api/v*/users/**").authenticated()
+                        .requestMatchers("/api/v*/tasks/**").authenticated()
+                        .anyRequest().authenticated());
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
