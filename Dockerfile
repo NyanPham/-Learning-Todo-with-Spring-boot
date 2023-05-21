@@ -1,7 +1,7 @@
 #
 # Build Stage
-#
-FROM maven:4.0.0 AS Build
+#   
+FROM maven:4.0.0-alpha-2 AS Build
 COPY . .
 RUN mvn clean package -DskipTests
         
