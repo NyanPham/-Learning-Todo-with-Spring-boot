@@ -32,5 +32,5 @@ public class AuthController {
     @GetMapping("logout")
     public void signOut(HttpServletResponse response) {
         authService.signOut(response);
-    }
+    }   
 }
