@@ -1,6 +1,5 @@
 package nhanpham.basictodo.Task;
 
-import java.util.Date;
 import java.util.Optional;
 
 import java.util.Collection;
@@ -11,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import nhanpham.basictodo.User.User;
 
 @RestController
 @RequestMapping("api/v1/tasks")
@@ -30,15 +31,20 @@ public class TaskController {
     @GetMapping
     public ResponseEntity<Collection<Task>> getAllTasks(
             @CurrentSecurityContext(expression = "authentication") Authentication auth) {
-                
+
         return new ResponseEntity<Collection<Task>>(taskService.findTasks(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody TaskToUpsertDao taskToCreate) {
+    public ResponseEntity<Task> createTask(@RequestBody TaskToUpsertDao taskToCreate,
+            @CurrentSecurityContext(expression = "authentication") Authentication auth) {
+
+        Optional<User> currentUser = (Optional<User>) auth.getPrincipal();
+
         return new ResponseEntity<Task>(
                 taskService.createTask(taskToCreate.getTitle(), taskToCreate.getDescription(),
-                        taskToCreate.getDueDate(), taskToCreate.getIsCompleted()),
+                        taskToCreate.getDueDate(), taskToCreate.getIsCompleted(),
+                        new ObjectId(currentUser.get().getId())),
                 HttpStatus.CREATED);
     }
 

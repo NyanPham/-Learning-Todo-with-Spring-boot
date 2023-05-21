@@ -16,6 +16,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import nhanpham.basictodo.User.User;
+
 @Service
 public class TaskService {
     @Autowired
@@ -28,8 +30,8 @@ public class TaskService {
         return taskRepository.findAll();
     }
 
-    public Task createTask(String title, String description, Date dueDate, Boolean isCompleted) {
-        return taskRepository.insert(new Task(title, description, dueDate, isCompleted));
+    public Task createTask(String title, String description, Date dueDate, Boolean isCompleted, ObjectId userId) {
+        return taskRepository.insert(new Task(title, description, dueDate, isCompleted, userId));
     }
 
     public Optional<Task> getTask(ObjectId id) {
